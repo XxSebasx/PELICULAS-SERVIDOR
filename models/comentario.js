@@ -29,6 +29,11 @@ const Comentario = sequelize.define('comentario', {
         },
         onDelete: 'CASCADE'
     },
+    rol:{
+        type: DataTypes.ENUM('valoracion', 'respuesta'),
+        allowNull: false,
+        defaultValue: 'valoracion'
+    }
 
 }, {
     tableName: 'comentarios',

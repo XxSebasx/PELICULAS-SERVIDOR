@@ -13,6 +13,24 @@ module.exports = {
         }
     },
 
+    async getUsuario(req, res) {
+        try {
+            const { nombre } = req.params;
+            const usuario = await Usuario.findOne({ where: { nombre } });
+            if (!usuario) {
+                return res.status(404).json({
+                    message: 'Usuario no encontrado'
+                });
+            }
+            res.json(usuario);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                message: 'Error en el servidor'
+            });
+        }
+    },
+
     async deleteUser(req, res) {
         try {
             const { id } = req.params;
@@ -58,4 +76,45 @@ module.exports = {
             });
         }
     },
+
+    async updateUser(req, res) {
+        try {
+            const { id } = req.params;
+            const { nombre, email, password } = req.body;
+            Usuario.update({
+                nombre,
+                email,
+                password
+            }, {
+                where: { id }
+            });
+            res.json({
+                message: 'Usuario actualizado'
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                message: 'Error en el servidor'
+            });
+        }
+    },
+
+    async loginUser(req, res) {
+        try {
+            const { email, password } = req.body;
+            const usuario = await Usuario.findOne({ where: { email } });
+            if (!usuario ||!usuario.validarPassword(password)) {
+                return res.status(401).json({
+                    message: 'Credenciales inválidas'
+                });
+            }
+            res.json(usuario);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                message: 'Error en el servidor'
+            });
+        }
+    }
+    
 };

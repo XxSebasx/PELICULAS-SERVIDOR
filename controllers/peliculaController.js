@@ -1,4 +1,6 @@
 const Pelicula = require('../models/pelicula');
+const Comentario = require('../models/comentario');
+
 
 module.exports = {
     async getPeliculas(req, res) {
@@ -48,5 +50,43 @@ module.exports = {
         } catch (error) {
             
         }
-    }
+    },
+
+    async createPelicula(req, res) {
+        try {
+            const pelicula = await Pelicula.create(req.body);
+            res.json(pelicula);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                message: 'Error en el servidor'
+            });
+        }
+    },
+
+    async updatePelicula(req, res) {
+        try {
+            const { id } = req.params;
+            const pelicula = await Pelicula.findByPk(id);
+            if (!pelicula) {
+                return res.status(404).json({
+                    message: 'Pelicula no encontrada'
+                });
+            }
+            await pelicula.update(req.body);
+            res.json(pelicula);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                message: 'Error en el servidor'
+            });
+        }
+    },
+
+
+    
+
+
+
+
 }

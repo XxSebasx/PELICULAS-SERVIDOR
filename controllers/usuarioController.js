@@ -31,7 +31,7 @@ module.exports = {
         }
     },
 
-    async deleteUser(req, res) {
+    async deleteUsuario(req, res) {
         try {
             const { id } = req.params;
             const usuario = await Usuario.findByPk(id);
@@ -77,7 +77,7 @@ module.exports = {
         }
     },
 
-    async updateUser(req, res) {
+    async updateUsuario(req, res) {
         try {
             const { id } = req.params;
             const { nombre, email, password } = req.body;

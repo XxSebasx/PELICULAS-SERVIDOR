@@ -2,7 +2,7 @@ const { body, param, validationResult } = require("express-validator");
 const Comentario = require("../models/comentario");
 const Usuario = require("../models/usuario");
 const Pelicula = require("../models/pelicula");
-const Enlace = require("../models/enlace");
+const Enlace = require("../models/enlaces");
 
 module.exports = {
     // Obtener enlaces de una película
@@ -66,11 +66,11 @@ module.exports = {
 
             // Validar y sanitizar campos opcionales
             await Promise.all([
-                body("amazon").optional().trim().escape().isURL().withMessage("URL inválida").run(req),
-                body("netflix").optional().trim().escape().isURL().withMessage("URL inválida").run(req),
-                body("disney").optional().trim().escape().isURL().withMessage("URL inválida").run(req),
-                body("hbo").optional().trim().escape().isURL().withMessage("URL inválida").run(req),
-                body("movistar").optional().trim().escape().isURL().withMessage("URL inválida").run(req),
+                body("amazon").optional().trim().escape().isURL().run(req),
+                body("netflix").optional().trim().escape().isURL().run(req),
+                body("disney").optional().trim().escape().isURL().run(req),
+                body("hbo").optional().trim().escape().isURL().run(req),
+                body("movistar").optional().trim().escape().isURL().run(req),
             ]);
 
             const errors = validationResult(req);

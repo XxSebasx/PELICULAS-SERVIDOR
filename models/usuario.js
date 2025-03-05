@@ -22,7 +22,7 @@ const Usuario = sequelize.define('Usuario', {
     password:{
         type: DataTypes.STRING,
         allowNull: false,
-        validator: {
+        validate: {
             len: [8, 20],
             isAlphanumeric: true
         }
@@ -40,10 +40,6 @@ const Usuario = sequelize.define('Usuario', {
 }, {
     tableName: 'usuarios',
     timestamps: false
-});
-
-sequelize.sync({ force: true }).then(() => {
-    console.log('Tabla usuarios sincronizada');
 });
 
 module.exports = Usuario;

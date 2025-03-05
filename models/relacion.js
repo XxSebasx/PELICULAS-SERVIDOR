@@ -1,20 +1,20 @@
-const pelicula = require('./pelicula');
-const usuario = require('./usuario');
-const comentario = require('./comentario');
-const enlace = require('./enlace');
+const Pelicula = require('./pelicula');
+const Usuario = require('./usuario');
+const Comentario = require('./comentario');
+const Enlace = require('./enlaces');
 
-pelicula.hasMany(comentario, {foreignKey: 'idPelicula'});
-comentario.belongsTo(pelicula, {foreignKey: 'idPelicula'});
+Pelicula.hasMany(Comentario, {foreignKey: 'idPelicula'});
+Comentario.belongsTo(Pelicula, {foreignKey: 'idPelicula'});
 
-usuario.hasMany(comentario, {foreignKey: 'idUsuario'});
-comentario.belongsTo(usuario, {foreignKey: 'idUsuario'});
+Usuario.hasMany(Comentario, {foreignKey: 'idUsuario'});
+Comentario.belongsTo(Usuario, {foreignKey: 'idUsuario'});
 
-pelicula.hasOne(enlace, {foreignKey: 'peliculaID'});
-enlace.belongsTo(pelicula, {foreignKey: 'peliculaID'});
+Pelicula.hasOne(Enlace, {foreignKey: 'peliculaID'});
+Enlace.belongsTo(Pelicula, {foreignKey: 'peliculaID'});
 
 module.exports = {
-    pelicula,
-    usuario,
-    comentario,
-    enlace
+    Pelicula,
+    Usuario,
+    Comentario,
+    Enlace
 };

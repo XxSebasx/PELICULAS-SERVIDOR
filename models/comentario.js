@@ -29,6 +29,16 @@ const Comentario = sequelize.define('comentario', {
         },
         onDelete: 'CASCADE'
     },
+    fecha:{
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW
+    },
+    valoracion:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
     rol:{
         type: DataTypes.ENUM('valoracion', 'respuesta'),
         allowNull: false,
@@ -40,10 +50,4 @@ const Comentario = sequelize.define('comentario', {
     timestamps: false
 });
 
-
-sequelize.sync({ force: true }).then(() => {
-    console.log('Tabla comentarios sincronizada');
-});
-
 module.exports = Comentario;
-

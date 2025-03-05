@@ -1,7 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-
 const Pelicula = sequelize.define('Pelicula', {
     ID:{
         type: DataTypes.INTEGER,
@@ -16,8 +15,16 @@ const Pelicula = sequelize.define('Pelicula', {
         type: DataTypes.DATE,
         allowNull: false,
     },
+    descripcion:{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    director:{
+        type: DataTypes.STRING(100),
+        allowNull: false
+    }
     genero: {
-        type: DataTypes.ENUM('hombre', 'mujer', 'otro'),
+        type: DataTypes.STRING(50),
         allowNull: false,
     },
     duracion:{
@@ -27,29 +34,29 @@ const Pelicula = sequelize.define('Pelicula', {
     portada:{
         type: DataTypes.STRING,
         allowNull: false,
-        validator: {
+        validate: {
             isUrl: true
         }
     },
     trailer:{
         type: DataTypes.STRING,
         allowNull: false,
-        validator: {
+        validate: {
             isUrl: true
         }
     },
     calificacion:{
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            min: 0,
+            max: 5
+        }
+        defaultValue: 0
     },
 }, {
-    tableName: 'clientes',
+    tableName: 'peliculas',
     timestamps: false
-});
-
-
-sequelize.sync({ force: true }).then(() => {
-    console.log('Tabla peliculas sincronizada');
 });
 
 module.exports = Pelicula;

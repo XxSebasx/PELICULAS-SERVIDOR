@@ -52,9 +52,7 @@ const Enlace = sequelize.define('enlace', {
     timestamps: false
 });
 
-sequelize.sync({ force: true }).then(() => {
-    console.log('Tabla enlaces sincronizada');
-});
+
 
 module.exports = Enlace;
 

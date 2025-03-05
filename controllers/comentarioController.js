@@ -7,7 +7,7 @@ module.exports = {
   async getComentarios(req, res) {
     try {
       // Validar el ID de la película (debe ser numérico)
-      await param("idPelicula").isInt().run(req);
+      await param("id").isInt().run(req);
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -35,7 +35,8 @@ module.exports = {
       await Promise.all([
         body("idPelicula").isInt().withMessage("ID de película inválido").run(req),
         body("idUsuario").isInt().withMessage("ID de usuario inválido").run(req),
-        body("texto").trim().escape().notEmpty().withMessage("El texto es obligatorio").run(req),
+        body("valoracion").iiInt().withMessage("Valoración inválida").run(req),
+        body("texto").trim().escape().notEmpty().run(req),
       ]);
 
       const errors = validationResult(req);
@@ -82,6 +83,33 @@ module.exports = {
       }
 
       res.json(comentario);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error en el servidor" });
+    }
+  },
+
+  // Eliminar un comentario con validación
+  async deleteComentario(req, res) {
+    try {
+      // Validar ID del comentario
+      await param("id").isInt().withMessage("ID inválido").run(req);
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+      const { id } = req.params;
+
+      // Buscar comentario
+      const comentario = await Comentario.findByPk(id);
+      if (!comentario) {
+        return res.status(404).json({ message: "Comentario no encontrado" });
+      }
+
+      // Eliminar comentario
+      await comentario.destroy();
+      res.json({ message: "Comentario eliminado" });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error en el servidor" });

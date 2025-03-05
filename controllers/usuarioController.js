@@ -103,7 +103,7 @@ module.exports = {
         try {
             const { email, password } = req.body;
             const usuario = await Usuario.findOne({ where: { email } });
-            if (!usuario ||!usuario.validarPassword(password)) {
+            if (!usuario ||usuario.password != password) {
                 return res.status(401).json({
                     message: 'Credenciales inválidas'
                 });

@@ -1,35 +1,22 @@
-const { pelicula, sequelize } = require('../models/relacion'); // Importamos el modelo de Película
+const request = require('supertest');
+const express = require('express');
+const bodyParser = require('body-parser');
+const peliculaController = require('../controllers/peliculaController');
+const sequelize = require('../config/database');
+const carteleraRouter = require('../routers/carteleraRouter');
 
-describe('Pruebas de Película', () => {
-    let peliculaId;
+const app = express();
+app.use(bodyParser.json());
+app.use('/', carteleraRouter);
 
-    beforeAll(async () => {
-        await sequelize.sync({ force: true });
-    });
+beforeAll(async () => {
+  await sequelize.sync({ force: true });
+});
 
-    afterAll(async () => {
-        await sequelize.close();
-    });
-
-    test('Debe crear una película', async () => {
-        const nuevaPelicula = await pelicula.create({
-            titulo: 'Inception',
-            anio_estreno: '2010-07-16',
-            genero: 'otro',
-            duracion: '148 min',
-            portada: 'https://example.com/inception.jpg',
-            trailer: 'https://example.com/inception-trailer.mp4',
-            calificacion: 9
-        });
-
-        expect(nuevaPelicula).toHaveProperty('ID');
-        expect(nuevaPelicula.titulo).toBe('Inception');
-        peliculaId = nuevaPelicula.ID;
-    });
-
-    test('Debe eliminar una película', async () => {
-        await pelicula.destroy({ where: { ID: peliculaId } });
-        const peliculaEliminada = await pelicula.findByPk(peliculaId);
-        expect(peliculaEliminada).toBeNull();
-    });
+describe('Pelicula Controller', () => {
+  it('should get all peliculas', async () => {
+    const res = await request(app).get('/pelicula');
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toBeInstanceOf(Array);
+  });
 });

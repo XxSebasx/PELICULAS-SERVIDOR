@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Agregar pelicula</h1>
-
-    <form>
-        <input type="text" id="titulo" placeholder="Titulo">
-        <input type="text" id="anio" placeholder="Año">
-        <input type="text" id="director" placeholder="Director">
-        <input type="text" id="poster" placeholder="Poster">
-        <input type="text" id="trailer" placeholder="Trailer">
-        <input type="text" id="sinopsis" placeholder="Sinopsis">
-        <input type="text" id="genero" placeholder="Genero">
-        <input type="text" id="duracion" placeholder="Duracion">
-        <input type="text" id="califcacion" placeholder="califcacion">
-
-        
-        <button type="submit">Agregar</button>
+    <form id="addPelicula">
+      <input type="text" id="titulo" placeholder="Titulo" />
+      <input type="text" id="anio" placeholder="Año" />
+      <input type="text" id="director" placeholder="Director" />
+      <input type="text" id="poster" placeholder="Poster" />
+      <input type="text" id="trailer" placeholder="Trailer" />
+      <input type="text" id="sinopsis" placeholder="Sinopsis" />
+      <input type="text" id="genero" placeholder="Genero" />
+      <input type="text" id="duracion" placeholder="Duracion" />
+      <button type="submit">Agregar</button>
     </form>
 
-    
-</body>
+    <h1>Agregar enlace</h1>
+    <form id="addEnlace">
+      <input type="text" id="idPelicula" placeholder="idPelicula" />
+      <input type="text" id="amazon" placeholder="amazon" />
+      <input type="text" id="netflix" placeholder="netflix" />
+      <input type="text" id="disney" placeholder="disney" />
+      <input type="text" id="hbo" placeholder="hbo" />
+      <input type="text" id="movistar" placeholder="movistar" />
+      <button type="submit">Agregar</button>
+    </form>
+
+    <h1>Eliminar</h1>
+    <input type="text" id="tituloEliminar" placeholder="Titulo" />
+    <button type="click">Eliminar</button>
+  </body>
 </html>

@@ -22,7 +22,7 @@ const Pelicula = sequelize.define('Pelicula', {
     director:{
         type: DataTypes.STRING(100),
         allowNull: false
-    }
+    },
     genero: {
         type: DataTypes.STRING(50),
         allowNull: false,
@@ -44,16 +44,7 @@ const Pelicula = sequelize.define('Pelicula', {
         validate: {
             isUrl: true
         }
-    },
-    calificacion:{
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            min: 0,
-            max: 5
-        }
-        defaultValue: 0
-    },
+    }
 }, {
     tableName: 'peliculas',
     timestamps: false

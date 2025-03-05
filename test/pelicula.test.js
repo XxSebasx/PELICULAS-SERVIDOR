@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use('/', carteleraRouter);
 
 beforeAll(async () => {
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ force: false });
 });
 
 describe('Pelicula Controller', () => {

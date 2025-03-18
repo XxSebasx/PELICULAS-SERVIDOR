@@ -9,12 +9,14 @@ const app = express();
 app.use(bodyParser.json());
 app.use('/', carteleraRouter);
 
+// Sincronizar la base de datos antes de ejecutar las pruebas
 beforeAll(async () => {
   await sequelize.sync({ force: false });
 });
 
 describe('Usuario Controller', () => {
-  it('should get all usuarios', async () => {
+  // Prueba para obtener usuarios
+  it('should get usuarios', async () => {
     const res = await request(app).get('/usuario');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toBeInstanceOf(Array);

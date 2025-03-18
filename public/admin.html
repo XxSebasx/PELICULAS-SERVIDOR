@@ -6,10 +6,19 @@
     <title>Document</title>
   </head>
   <body>
+    <header>
+      <nav>
+        <h1><a href="index.html">terroCave</a></h1>
+        <ul>
+          <li><a href="./login.html">Login</a></li>
+          <li><a href="./register.html">Register</a></li>
+        </ul>
+      </nav>
+    </header>
     <h1>Agregar pelicula</h1>
     <form id="addPelicula">
       <input type="text" id="titulo" placeholder="Titulo" />
-      <input type="text" id="anio" placeholder="Año" />
+      <input type="date" id="anio_estreno" placeholder="Año de estreno" />
       <input type="text" id="director" placeholder="Director" />
       <input type="text" id="poster" placeholder="Poster" />
       <input type="text" id="trailer" placeholder="Trailer" />
@@ -19,7 +28,7 @@
       <button type="submit">Agregar</button>
     </form>
 
-    <h1>Agregar enlace</h1>
+    <h1>Agregar enlaces</h1>
     <form id="addEnlace">
       <input type="text" id="idPelicula" placeholder="idPelicula" />
       <input type="text" id="amazon" placeholder="amazon" />
@@ -31,7 +40,10 @@
     </form>
 
     <h1>Eliminar</h1>
-    <input type="text" id="tituloEliminar" placeholder="Titulo" />
-    <button type="click">Eliminar</button>
+    <input type="text" id="idPeliculaDelete" placeholder="idPelicula" />
+    <button type="submit">Eliminar pelicula</button>
+    <button type="submit">Eliminar enlaces</button>
+
+    <script src="admin.js"></script>
   </body>
 </html>

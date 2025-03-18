@@ -1,6 +1,5 @@
 
-alert("hola")
-console.log("hola")
+
 document.getElementById('registrar').addEventListener('submit', registrar);
 
 async function registrar(e) {
@@ -21,9 +20,10 @@ async function registrar(e) {
 
     if (data) {
         console.log(data);
+        window.location.href = './login.html';
     } else {
         alert('Usuario registrado');
-        window.location.href = '/login';
+        window.location.href = './login.html';
     }
 }
 

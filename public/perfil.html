@@ -3,9 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Perfil de Usuario</title>
 </head>
 <body>
-    
+    <header>
+        <nav>
+            <h1><a href="index.html">terroCave</a></h1>
+            <ul>
+                <li><a href="./login.html">Login</a></li>
+                <li><a href="./register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Perfil de Usuario</h1>
+    <p id="userName"></p>
+    <p id="userEmail"></p>
+    <p id="userRole"></p>
+
+    <h2>Actualizar Datos</h2>
+    <form id="updateForm">
+        <input type="text" id="updateName" placeholder="Nombre">
+        <input type="email" id="updateEmail" placeholder="Email">
+        <input type="password" id="updatePassword" placeholder="Contraseña">
+        <button type="submit">Actualizar</button>
+    </form>
+
+    <a href="admin.html" id="admin">Opciones de administrador</a>
+    <script src="perfil.js"></script>
 </body>
 </html>

@@ -18,8 +18,9 @@ async function login(e) {
 
     if (data) {
         console.log(data);
+        localStorage.setItem('usuarioID', data);
+        window.location.href = './perfil.html';
     } else {
         alert('Bienvenido');
-        window.location.href = '/index.html';
     }
 }

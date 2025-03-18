@@ -1,4 +1,3 @@
-
 getCatalogo();
 async function getCatalogo() {
     const response = await fetch('/pelicula');
@@ -11,9 +10,17 @@ async function getCatalogo() {
             <img src="${pelicula.imagen}" alt="${pelicula.titulo}">
             <h3>${pelicula.titulo}</h3>
             <p>${pelicula.descripcion}</p>
-            <button onclick="verPelicula(${pelicula.id})">Ver</button>
+            <button class="ver-pelicula" data-id="${pelicula.ID}">Ver</button>
         `;
         catalogo.appendChild(div);
+    });
+
+    // Agregar controladores de eventos a los botones
+    document.querySelectorAll('.ver-pelicula').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            verPelicula(id);
+        });
     });
 }
 

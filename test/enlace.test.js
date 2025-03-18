@@ -1,7 +1,6 @@
 const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
-const enlaceController = require('../controllers/enlaceController');
 const sequelize = require('../config/database');
 const carteleraRouter = require('../routers/carteleraRouter');
 
@@ -9,14 +8,29 @@ const app = express();
 app.use(bodyParser.json());
 app.use('/', carteleraRouter);
 
+// Sincronizar la base de datos antes de ejecutar las pruebas
 beforeAll(async () => {
   await sequelize.sync({ force: false });
 });
 
 describe('Enlace Controller', () => {
-  it('should get all enlaces', async () => {
-    const res = await request(app).get('/enlace');
+  // Prueba para crear un enlace
+  it('should create an enlace', async () => {
+    const enlaceData = {
+      peliculaID: 1,
+      amazon: "https://amazon.com/movie",
+      netflix: "https://netflix.com/movie",
+      disney: "https://disney.com/movie",
+      hbo: "https://hbo.com/movie",
+      movistar: "https://movistar.com/movie"
+    };
+
+    const res = await request(app)
+      .post('/enlace')
+      .send(enlaceData);
+
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toBeInstanceOf(Array);
+    expect(res.body).toHaveProperty('ID');
+    expect(res.body.amazon).toEqual(enlaceData.amazon);
   });
 });

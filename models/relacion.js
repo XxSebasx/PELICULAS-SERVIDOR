@@ -9,7 +9,7 @@ Comentario.belongsTo(Pelicula, {foreignKey: 'idPelicula'});
 Usuario.hasMany(Comentario, {foreignKey: 'idUsuario'});
 Comentario.belongsTo(Usuario, {foreignKey: 'idUsuario'});
 
-Pelicula.hasOne(Enlace, {foreignKey: 'peliculaID'});
+Pelicula.hasMany(Enlace, {foreignKey: 'peliculaID'});
 Enlace.belongsTo(Pelicula, {foreignKey: 'peliculaID'});
 
 module.exports = {

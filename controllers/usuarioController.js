@@ -15,17 +15,17 @@ module.exports = {
         }
     },
 
-    // Obtener un usuario por ID con validación
+    // Obtener un usuario por nombre con validación
     async getUsuario(req, res) {
         try {
-            await param("id").isInt().withMessage("ID inválido").run(req);
+            await param("nombre").isString().withMessage("Nombre inválido").run(req);
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
 
-            const { id } = req.params;
-            const usuario = await Usuario.findByPk(id);
+            const { nombre } = req.params;
+            const usuario = await Usuario.findOne({ where: { nombre } });
             if (!usuario) {
                 return res.status(404).json({
                     message: 'Usuario no encontrado'
@@ -40,17 +40,17 @@ module.exports = {
         }
     },
 
-    // Eliminar un usuario por ID con validación
+    // Eliminar un usuario por nombre con validación
     async deleteUsuario(req, res) {
         try {
-            await param("id").isInt().withMessage("ID inválido").run(req);
+            await param("nombre").isString().withMessage("Nombre inválido").run(req);
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
 
-            const { id } = req.params;
-            const usuario = await Usuario.findByPk(id);
+            const { nombre } = req.params;
+            const usuario = await Usuario.findOne({ where: { nombre } });
             if (!usuario) {
                 return res.status(404).json({
                     message: 'Usuario no encontrado'

@@ -46,27 +46,23 @@ module.exports = {
         }
     },
 
-    // Obtener una película por ID con validación
+    // Obtener una película por nombre, fecha, director y genero con validación
     async getPelicula(req, res) {
         try {
-            await param("id").isInt().withMessage("ID inválido").run(req);
+            await Promise.all([
+                param("titulo").isString().withMessage("Titulo inválido").run(req),
+                param("anio_estreno").isDate().withMessage("Año de estreno inválido").run(req),
+                param("director").isString().withMessage("Director inválido").run(req),
+                param("genero").isString().withMessage("Género inválido").run(req)
+            ]);
+
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
 
-            const { id } = req.params;
-            const pelicula = await Pelicula.findByPk(id, {
-                include: [
-                    {
-                        model: Comentario,
-                        include: [Usuario] // Incluye el usuario que hizo el comentario
-                    },
-                    {
-                        model: Enlace // Incluye los enlaces relacionados
-                    }
-                ]
-            });
+            const { titulo, anio_estreno, director, genero } = req.params;
+            const pelicula = await Pelicula.findOne({ where: { titulo, anio_estreno, director, genero } });
             if (!pelicula) {
                 return res.status(404).json({
                     message: 'Pelicula no encontrada'
@@ -81,7 +77,7 @@ module.exports = {
         }
     },
 
-    // Crear una nueva película con validación y sanitización
+    // Crear una nueva película con validación
     async createPelicula(req, res) {
         try {
             await Promise.all([
@@ -152,6 +148,22 @@ module.exports = {
                     ['valoracion', 'DESC']
                 ]
             });
+            res.json(peliculas);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                message: 'Error en el servidor'
+            });
+        }
+    },
+
+    //ranking por numero de comentarios asociados a la pelicula
+    async rankingPopulares(req, res) {
+        try {
+            const peliculas = await Pelicula.findAll({
+                include: [Comentario]
+            });
+            peliculas.sort((a, b) => b.comentarios.length - a.comentarios.length);
             res.json(peliculas);
         } catch (error) {
             console.error(error);
